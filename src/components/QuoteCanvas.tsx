@@ -1,8 +1,8 @@
 
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useDraggableText } from '@/hooks/useDraggableText';
 import { Button } from '@/components/ui/button';
-import { Download, RefreshCw } from 'lucide-react';
+import { Download, RefreshCw, Maximize, Minimize } from 'lucide-react';
 import { toast } from 'sonner';
 import { backgroundImages } from './ImagePicker';
 
@@ -26,7 +26,8 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
   backgroundStyle
 }) => {
   const canvasRef = useRef<HTMLDivElement>(null);
-
+  const [expanded, setExpanded] = useState(false);
+  
   const { position: quotePosition, handleMouseDown: handleQuoteMouseDown, handleTouchStart: handleQuoteTouchStart } = 
     useDraggableText({ id: 'draggable-quote', initialPosition: { x: 40, y: 40 } });
 
@@ -81,15 +82,26 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
   }, []);
 
   const selectedBackground = backgroundImages.find(bg => bg.id === backgroundStyle) || backgroundImages[0];
-  const backgroundStyle1 = backgroundStyle.startsWith('canvas-bg') 
+  const isGradient = backgroundStyle.startsWith('canvas-bg');
+  const backgroundStyle1 = isGradient 
     ? { background: selectedBackground.url } 
     : { backgroundImage: selectedBackground.url, backgroundSize: 'cover', backgroundPosition: 'center' };
+
+  const toggleSize = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <div className="space-y-4 w-full">
       <div 
         ref={canvasRef} 
-        className={`canvas-container w-full aspect-[4/3] sm:aspect-[3/2]`}
+        className={`canvas-container w-full ${
+          isGradient 
+            ? "aspect-[4/3] sm:aspect-[3/2]" 
+            : expanded 
+              ? "min-h-[60vh]" 
+              : "aspect-[4/3] sm:aspect-square"
+        }`}
         style={backgroundStyle1}
       >
         <div
@@ -133,6 +145,12 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
           <RefreshCw size={16} />
           Reset Position
         </Button>
+        {!isGradient && (
+          <Button variant="outline" onClick={toggleSize} className="flex gap-2 items-center">
+            {expanded ? <Minimize size={16} /> : <Maximize size={16} />}
+            {expanded ? "Compact View" : "Expand View"}
+          </Button>
+        )}
         <Button onClick={downloadImage} className="flex gap-2 items-center">
           <Download size={16} />
           Download Image
