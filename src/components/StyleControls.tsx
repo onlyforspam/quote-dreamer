@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import ColorPicker from './ColorPicker';
+import ImagePicker from './ImagePicker';
 
 interface StyleControlsProps {
   fontFamily: string;
@@ -42,14 +43,6 @@ const StyleControls: React.FC<StyleControlsProps> = ({
     { value: 'text-left', label: 'Left' },
     { value: 'text-center', label: 'Center' },
     { value: 'text-right', label: 'Right' },
-  ];
-
-  const backgroundOptions = [
-    { value: 'canvas-bg-1', label: 'Cream' },
-    { value: 'canvas-bg-2', label: 'Blush' },
-    { value: 'canvas-bg-3', label: 'Sky' },
-    { value: 'canvas-bg-4', label: 'Dark' },
-    { value: 'canvas-bg-5', label: 'Maroon' },
   ];
 
   return (
@@ -122,26 +115,11 @@ const StyleControls: React.FC<StyleControlsProps> = ({
         </TabsContent>
 
         <TabsContent value="background" className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label>Background Style</Label>
-            <div className="grid grid-cols-2 gap-2">
-              {backgroundOptions.map((bg) => (
-                <button
-                  key={bg.value}
-                  className={`p-2 h-14 border rounded-md ${bg.value} transition-colors ${
-                    backgroundStyle === bg.value 
-                      ? 'ring-2 ring-primary' 
-                      : 'hover:opacity-90'
-                  }`}
-                  onClick={() => setBackgroundStyle(bg.value)}
-                >
-                  <span className={`${bg.value === 'canvas-bg-4' || bg.value === 'canvas-bg-5' ? 'text-white' : 'text-book-charcoal'}`}>
-                    {bg.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
+          <ImagePicker
+            selectedImage={backgroundStyle}
+            onChange={setBackgroundStyle}
+            label="Background Image"
+          />
         </TabsContent>
       </Tabs>
     </div>

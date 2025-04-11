@@ -60,23 +60,3 @@
   user-select: none;
   -webkit-user-select: none;
 }
-
-.canvas-bg-1 {
-  background: linear-gradient(135deg, #F8F0E3, #EADDCF);
-}
-
-.canvas-bg-2 {
-  background: linear-gradient(135deg, #F8F0E3, #E6C9C9);
-}
-
-.canvas-bg-3 {
-  background: linear-gradient(135deg, #EFE7DA, #D9E4EC);
-}
-
-.canvas-bg-4 {
-  background: linear-gradient(135deg, #32292F, #4A3E48);
-}
-
-.canvas-bg-5 {
-  background: linear-gradient(135deg, #8E3B46, #A65154);
-}

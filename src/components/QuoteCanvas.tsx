@@ -4,6 +4,7 @@ import { useDraggableText } from '@/hooks/useDraggableText';
 import { Button } from '@/components/ui/button';
 import { Download, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
+import { backgroundImages } from './ImagePicker';
 
 interface QuoteCanvasProps {
   quoteText: string;
@@ -79,11 +80,17 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
     }
   }, []);
 
+  const selectedBackground = backgroundImages.find(bg => bg.id === backgroundStyle) || backgroundImages[0];
+  const backgroundStyle1 = backgroundStyle.startsWith('canvas-bg') 
+    ? { background: selectedBackground.url } 
+    : { backgroundImage: selectedBackground.url, backgroundSize: 'cover', backgroundPosition: 'center' };
+
   return (
     <div className="space-y-4 w-full">
       <div 
         ref={canvasRef} 
-        className={`canvas-container ${backgroundStyle} w-full aspect-[4/3] sm:aspect-[3/2]`}
+        className={`canvas-container w-full aspect-[4/3] sm:aspect-[3/2]`}
+        style={backgroundStyle1}
       >
         <div
           id="draggable-quote"
@@ -92,7 +99,8 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
             fontSize: `${fontSize}px`, 
             color: fontColor, 
             left: `${quotePosition.x}px`, 
-            top: `${quotePosition.y}px` 
+            top: `${quotePosition.y}px`,
+            textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
           }}
           onMouseDown={handleQuoteMouseDown}
           onTouchStart={handleQuoteTouchStart}
@@ -109,7 +117,8 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
               color: fontColor,
               opacity: 0.85,
               left: `${authorPosition.x}px`, 
-              top: `${authorPosition.y}px` 
+              top: `${authorPosition.y}px`,
+              textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
             }}
             onMouseDown={handleAuthorMouseDown}
             onTouchStart={handleAuthorTouchStart}
