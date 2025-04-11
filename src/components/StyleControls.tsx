@@ -7,6 +7,7 @@ import ColorPicker from './ColorPicker';
 import ImagePicker from './ImagePicker';
 
 interface StyleControlsProps {
+  // Quote text styling
   fontFamily: string;
   setFontFamily: (font: string) => void;
   fontSize: number;
@@ -15,11 +16,28 @@ interface StyleControlsProps {
   setFontColor: (color: string) => void;
   textAlign: string;
   setTextAlign: (align: string) => void;
+  textRotation: number;
+  setTextRotation: (rotation: number) => void;
+  
+  // Author text styling
+  authorFontFamily: string;
+  setAuthorFontFamily: (font: string) => void;
+  authorFontSize: number;
+  setAuthorFontSize: (size: number) => void;
+  authorFontColor: string;
+  setAuthorFontColor: (color: string) => void;
+  authorTextAlign: string;
+  setAuthorTextAlign: (align: string) => void;
+  authorRotation: number;
+  setAuthorRotation: (rotation: number) => void;
+  
+  // Background styling
   backgroundStyle: string;
   setBackgroundStyle: (style: string) => void;
 }
 
 const StyleControls: React.FC<StyleControlsProps> = ({
+  // Quote text styling
   fontFamily,
   setFontFamily,
   fontSize,
@@ -28,6 +46,22 @@ const StyleControls: React.FC<StyleControlsProps> = ({
   setFontColor,
   textAlign,
   setTextAlign,
+  textRotation,
+  setTextRotation,
+  
+  // Author text styling
+  authorFontFamily,
+  setAuthorFontFamily,
+  authorFontSize,
+  setAuthorFontSize,
+  authorFontColor,
+  setAuthorFontColor,
+  authorTextAlign,
+  setAuthorTextAlign,
+  authorRotation,
+  setAuthorRotation,
+  
+  // Background styling
   backgroundStyle,
   setBackgroundStyle
 }) => {
@@ -47,13 +81,15 @@ const StyleControls: React.FC<StyleControlsProps> = ({
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="text">
-        <TabsList className="w-full grid grid-cols-2">
-          <TabsTrigger value="text">Text Style</TabsTrigger>
+      <Tabs defaultValue="quote">
+        <TabsList className="w-full grid grid-cols-3">
+          <TabsTrigger value="quote">Quote Style</TabsTrigger>
+          <TabsTrigger value="author">Author Style</TabsTrigger>
           <TabsTrigger value="background">Background</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="text" className="space-y-4 py-4">
+        {/* Quote Text Styling */}
+        <TabsContent value="quote" className="space-y-4 py-4">
           <div className="space-y-2">
             <Label>Font</Label>
             <div className="grid grid-cols-3 gap-2">
@@ -88,6 +124,20 @@ const StyleControls: React.FC<StyleControlsProps> = ({
           </div>
 
           <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label>Rotation</Label>
+              <span className="text-xs text-muted-foreground">{textRotation}°</span>
+            </div>
+            <Slider
+              value={[textRotation]}
+              min={-180}
+              max={180}
+              step={5}
+              onValueChange={(value) => setTextRotation(value[0])}
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label>Text Alignment</Label>
             <div className="grid grid-cols-3 gap-2">
               {alignOptions.map((align) => (
@@ -110,6 +160,82 @@ const StyleControls: React.FC<StyleControlsProps> = ({
             colors={fontColors}
             selectedColor={fontColor}
             onChange={setFontColor}
+            label="Text Color"
+          />
+        </TabsContent>
+
+        {/* Author Text Styling */}
+        <TabsContent value="author" className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label>Font</Label>
+            <div className="grid grid-cols-3 gap-2">
+              {fontOptions.map((font) => (
+                <button
+                  key={font.value}
+                  className={`p-2 ${font.value} border rounded-md text-center transition-colors ${
+                    authorFontFamily === font.value 
+                      ? 'bg-secondary/20 border-secondary' 
+                      : 'hover:bg-accent/50'
+                  }`}
+                  onClick={() => setAuthorFontFamily(font.value)}
+                >
+                  {font.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label>Text Size</Label>
+              <span className="text-xs text-muted-foreground">{authorFontSize}px</span>
+            </div>
+            <Slider
+              value={[authorFontSize]}
+              min={16}
+              max={72}
+              step={1}
+              onValueChange={(value) => setAuthorFontSize(value[0])}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label>Rotation</Label>
+              <span className="text-xs text-muted-foreground">{authorRotation}°</span>
+            </div>
+            <Slider
+              value={[authorRotation]}
+              min={-180}
+              max={180}
+              step={5}
+              onValueChange={(value) => setAuthorRotation(value[0])}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Text Alignment</Label>
+            <div className="grid grid-cols-3 gap-2">
+              {alignOptions.map((align) => (
+                <button
+                  key={align.value}
+                  className={`p-2 border rounded-md text-center transition-colors ${
+                    authorTextAlign === align.value 
+                      ? 'bg-secondary/20 border-secondary' 
+                      : 'hover:bg-accent/50'
+                  }`}
+                  onClick={() => setAuthorTextAlign(align.value)}
+                >
+                  {align.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <ColorPicker
+            colors={fontColors}
+            selectedColor={authorFontColor}
+            onChange={setAuthorFontColor}
             label="Text Color"
           />
         </TabsContent>

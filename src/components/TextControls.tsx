@@ -32,10 +32,10 @@ const TextControls: React.FC<TextControlsProps> = ({
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="author">Author / Book</Label>
+        <Label htmlFor="author">Author</Label>
         <Input
           id="author"
-          placeholder="Author or book title..."
+          placeholder="Author name..."
           value={authorName}
           onChange={(e) => setAuthorName(e.target.value)}
         />

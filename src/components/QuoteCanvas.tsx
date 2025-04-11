@@ -9,20 +9,42 @@ import { backgroundImages } from './ImagePicker';
 interface QuoteCanvasProps {
   quoteText: string;
   authorName: string;
+  
+  // Quote styling
   fontFamily: string;
   fontSize: number;
   fontColor: string;
   textAlign: string;
+  textRotation: number;
+  
+  // Author styling
+  authorFontFamily: string;
+  authorFontSize: number;
+  authorFontColor: string;
+  authorTextAlign: string;
+  authorRotation: number;
+  
   backgroundStyle: string;
 }
 
 const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
   quoteText,
   authorName,
+  
+  // Quote styling
   fontFamily,
   fontSize,
   fontColor,
   textAlign,
+  textRotation,
+  
+  // Author styling
+  authorFontFamily,
+  authorFontSize,
+  authorFontColor,
+  authorTextAlign,
+  authorRotation,
+  
   backgroundStyle
 }) => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -112,6 +134,8 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
             color: fontColor, 
             left: `${quotePosition.x}px`, 
             top: `${quotePosition.y}px`,
+            transform: `rotate(${textRotation}deg)`,
+            transformOrigin: 'center center',
             textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
           }}
           onMouseDown={handleQuoteMouseDown}
@@ -123,19 +147,20 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
         {authorName && (
           <div
             id="draggable-author"
-            className={`draggable-text ${fontFamily} ${textAlign}`}
+            className={`draggable-text ${authorFontFamily} ${authorTextAlign}`}
             style={{ 
-              fontSize: `${Math.max(16, fontSize * 0.7)}px`, 
-              color: fontColor,
-              opacity: 0.85,
+              fontSize: `${authorFontSize}px`, 
+              color: authorFontColor,
               left: `${authorPosition.x}px`, 
               top: `${authorPosition.y}px`,
+              transform: `rotate(${authorRotation}deg)`,
+              transformOrigin: 'center center',
               textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
             }}
             onMouseDown={handleAuthorMouseDown}
             onTouchStart={handleAuthorTouchStart}
           >
-            {"— " + authorName}
+            {authorName}
           </div>
         )}
       </div>

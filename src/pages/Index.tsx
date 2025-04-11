@@ -11,10 +11,22 @@ import { toast } from 'sonner';
 const Index = () => {
   const [quoteText, setQuoteText] = useState("The world breaks everyone, and afterward, many are strong at the broken places.");
   const [authorName, setAuthorName] = useState("Ernest Hemingway");
+  
+  // Quote styling
   const [fontFamily, setFontFamily] = useState("font-serif");
   const [fontSize, setFontSize] = useState(28);
   const [fontColor, setFontColor] = useState("#32292F");
   const [textAlign, setTextAlign] = useState("text-center");
+  const [textRotation, setTextRotation] = useState(0);
+  
+  // Author styling
+  const [authorFontFamily, setAuthorFontFamily] = useState("font-serif");
+  const [authorFontSize, setAuthorFontSize] = useState(22);
+  const [authorFontColor, setAuthorFontColor] = useState("#32292F");
+  const [authorTextAlign, setAuthorTextAlign] = useState("text-center");
+  const [authorRotation, setAuthorRotation] = useState(0);
+  
+  // Background
   const [backgroundStyle, setBackgroundStyle] = useState("canvas-bg-1");
 
   // Show welcome toast
@@ -45,10 +57,19 @@ const Index = () => {
               <QuoteCanvas
                 quoteText={quoteText}
                 authorName={authorName}
+                
                 fontFamily={fontFamily}
                 fontSize={fontSize}
                 fontColor={fontColor}
                 textAlign={textAlign}
+                textRotation={textRotation}
+                
+                authorFontFamily={authorFontFamily}
+                authorFontSize={authorFontSize}
+                authorFontColor={authorFontColor}
+                authorTextAlign={authorTextAlign}
+                authorRotation={authorRotation}
+                
                 backgroundStyle={backgroundStyle}
               />
             </CardContent>
@@ -74,6 +95,20 @@ const Index = () => {
                 setFontColor={setFontColor}
                 textAlign={textAlign}
                 setTextAlign={setTextAlign}
+                textRotation={textRotation}
+                setTextRotation={setTextRotation}
+                
+                authorFontFamily={authorFontFamily}
+                setAuthorFontFamily={setAuthorFontFamily}
+                authorFontSize={authorFontSize}
+                setAuthorFontSize={setAuthorFontSize}
+                authorFontColor={authorFontColor}
+                setAuthorFontColor={setAuthorFontColor}
+                authorTextAlign={authorTextAlign}
+                setAuthorTextAlign={setAuthorTextAlign}
+                authorRotation={authorRotation}
+                setAuthorRotation={setAuthorRotation}
+                
                 backgroundStyle={backgroundStyle}
                 setBackgroundStyle={setBackgroundStyle}
               />
