@@ -29,13 +29,13 @@ export const backgroundImages: BackgroundImage[] = [
   { id: 'canvas-bg-3', url: 'linear-gradient(135deg, #EFE7DA, #D9E4EC)', thumbnail: 'linear-gradient(135deg, #EFE7DA, #D9E4EC)', name: 'Sky' },
   { id: 'canvas-bg-4', url: 'linear-gradient(135deg, #32292F, #4A3E48)', thumbnail: 'linear-gradient(135deg, #32292F, #4A3E48)', name: 'Dark' },
   { id: 'canvas-bg-5', url: 'linear-gradient(135deg, #8E3B46, #A65154)', thumbnail: 'linear-gradient(135deg, #8E3B46, #A65154)', name: 'Maroon' },
-  { id: 'book1', url: `url(${book1})`, thumbnail: book1, name: 'Vintage Book' },
-  { id: 'book2', url: `url(${book2})`, thumbnail: book2, name: 'Dark Book' },
-  { id: 'book3', url: `url(${book3})`, thumbnail: book3, name: 'Old Paper' },
-  { id: 'book4', url: `url(${book4})`, thumbnail: book4, name: 'Book Page' },
-  { id: 'book5', url: `url(${book5})`, thumbnail: book5, name: 'White Pages' },
-  { id: 'book6', url: `url(${book6})`, thumbnail: book6, name: 'Texture' },
-  { id: 'paper1', url: `url(${paper1})`, thumbnail: paper1, name: 'Parchment' },
+  { id: 'book1', url: `url('https://getbookquotes.vercel.app/_next/static/media/book5.4ab50fc7.jpg')`, thumbnail: book1, name: 'Vintage Book' },
+   { id: 'book2', url: `url('https://getbookquotes.vercel.app/_next/static/media/book3.61b073c2.jpg')`, thumbnail: book2, name: 'Dark Book' },
+   { id: 'book3', url: `url('https://getbookquotes.vercel.app/_next/static/media/paper1.c5abfec9.jpg')`, thumbnail: book3, name: 'Old Paper' },
+   { id: 'book4', url: `url('https://getbookquotes.vercel.app/_next/static/media/book2.989d7c46.jpg')`, thumbnail: book4, name: 'Book Page' },
+   { id: 'book5', url: `url('https://getbookquotes.vercel.app/_next/static/media/book6.ebd676df.jpg')`, thumbnail: book5, name: 'White Pages' },
+   { id: 'book6', url: `url('https://getbookquotes.vercel.app/_next/static/media/book4.29dd4bfd.jpg')`, thumbnail: book6, name: 'Texture' },
+  // { id: 'paper1', url: `url(${paper1})`, thumbnail: paper1, name: 'Parchment' },
 ];
 
 const ImagePicker: React.FC<ImagePickerProps> = ({
