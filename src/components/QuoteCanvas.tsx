@@ -2,7 +2,7 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useDraggableText } from '@/hooks/useDraggableText';
 import { Button } from '@/components/ui/button';
-import { Download, RefreshCw, Maximize, Minimize } from 'lucide-react';
+import { Download, RefreshCw, Maximize, Minimize, RotateCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { backgroundImages } from './ImagePicker';
 
@@ -50,11 +50,31 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
   const canvasRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   
-  const { position: quotePosition, handleMouseDown: handleQuoteMouseDown, handleTouchStart: handleQuoteTouchStart } = 
-    useDraggableText({ id: 'draggable-quote', initialPosition: { x: 40, y: 40 } });
+  const { 
+    position: quotePosition, 
+    rotation: quoteRotationState,
+    handleMouseDown: handleQuoteMouseDown, 
+    handleTouchStart: handleQuoteTouchStart,
+    handleRotateStart: handleQuoteRotateStart,
+    handleRotateTouchStart: handleQuoteRotateTouchStart
+  } = useDraggableText({ 
+    id: 'draggable-quote', 
+    initialPosition: { x: 40, y: 40 },
+    initialRotation: textRotation,
+  });
 
-  const { position: authorPosition, handleMouseDown: handleAuthorMouseDown, handleTouchStart: handleAuthorTouchStart } = 
-    useDraggableText({ id: 'draggable-author', initialPosition: { x: 40, y: 150 } });
+  const { 
+    position: authorPosition,
+    rotation: authorRotationState, 
+    handleMouseDown: handleAuthorMouseDown, 
+    handleTouchStart: handleAuthorTouchStart,
+    handleRotateStart: handleAuthorRotateStart,
+    handleRotateTouchStart: handleAuthorRotateTouchStart
+  } = useDraggableText({ 
+    id: 'draggable-author', 
+    initialPosition: { x: 40, y: 150 },
+    initialRotation: authorRotation,
+  });
   
   const resetPositions = () => {
     if (canvasRef.current) {
@@ -128,13 +148,13 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
       >
         <div
           id="draggable-quote"
-          className={`draggable-text max-w-[80%] ${fontFamily} ${textAlign}`}
+          className={`draggable-text max-w-[80%] ${fontFamily} ${textAlign} group`}
           style={{ 
             fontSize: `${fontSize}px`, 
             color: fontColor, 
             left: `${quotePosition.x}px`, 
             top: `${quotePosition.y}px`,
-            transform: `rotate(${textRotation}deg)`,
+            transform: `rotate(${quoteRotationState}deg)`,
             transformOrigin: 'center center',
             textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
           }}
@@ -142,18 +162,25 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
           onTouchStart={handleQuoteTouchStart}
         >
           {quoteText || "Enter your quote..."}
+          <div 
+            className="rotation-handle hidden group-hover:flex absolute -bottom-6 right-0 w-6 h-6 bg-white/80 rounded-full cursor-grab shadow-md items-center justify-center hover:bg-white"
+            onMouseDown={handleQuoteRotateStart}
+            onTouchStart={handleQuoteRotateTouchStart}
+          >
+            <RotateCw size={14} />
+          </div>
         </div>
 
         {authorName && (
           <div
             id="draggable-author"
-            className={`draggable-text ${authorFontFamily} ${authorTextAlign}`}
+            className={`draggable-text ${authorFontFamily} ${authorTextAlign} group`}
             style={{ 
               fontSize: `${authorFontSize}px`, 
               color: authorFontColor,
               left: `${authorPosition.x}px`, 
               top: `${authorPosition.y}px`,
-              transform: `rotate(${authorRotation}deg)`,
+              transform: `rotate(${authorRotationState}deg)`,
               transformOrigin: 'center center',
               textShadow: !backgroundStyle.startsWith('canvas-bg') ? '0 1px 2px rgba(0,0,0,0.3)' : 'none'
             }}
@@ -161,6 +188,13 @@ const QuoteCanvas: React.FC<QuoteCanvasProps> = ({
             onTouchStart={handleAuthorTouchStart}
           >
             {authorName}
+            <div 
+              className="rotation-handle hidden group-hover:flex absolute -bottom-6 right-0 w-6 h-6 bg-white/80 rounded-full cursor-grab shadow-md items-center justify-center hover:bg-white"
+              onMouseDown={handleAuthorRotateStart}
+              onTouchStart={handleAuthorRotateTouchStart}
+            >
+              <RotateCw size={14} />
+            </div>
           </div>
         )}
       </div>

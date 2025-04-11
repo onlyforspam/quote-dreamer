@@ -32,7 +32,7 @@ const Index = () => {
   // Show welcome toast
   React.useEffect(() => {
     toast("Welcome to Quote Dreamer!", {
-      description: "Create beautiful book quotes by dragging text to position it perfectly.",
+      description: "Create beautiful book quotes. Drag to position and rotate text elements.",
       duration: 5000,
     });
   }, []);
@@ -117,7 +117,7 @@ const Index = () => {
         </div>
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>Drag text elements to position them perfectly on your image.</p>
+          <p>Drag text to position it and use the rotation handle to rotate it.</p>
         </div>
       </div>
     </div>

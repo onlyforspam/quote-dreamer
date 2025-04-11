@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
@@ -124,20 +123,6 @@ const StyleControls: React.FC<StyleControlsProps> = ({
           </div>
 
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label>Rotation</Label>
-              <span className="text-xs text-muted-foreground">{textRotation}°</span>
-            </div>
-            <Slider
-              value={[textRotation]}
-              min={-180}
-              max={180}
-              step={5}
-              onValueChange={(value) => setTextRotation(value[0])}
-            />
-          </div>
-
-          <div className="space-y-2">
             <Label>Text Alignment</Label>
             <div className="grid grid-cols-3 gap-2">
               {alignOptions.map((align) => (
@@ -162,6 +147,10 @@ const StyleControls: React.FC<StyleControlsProps> = ({
             onChange={setFontColor}
             label="Text Color"
           />
+          
+          <div className="p-2 bg-accent/20 rounded-md text-sm text-center">
+            Rotate the quote by using the rotation handle that appears when hovering over the text
+          </div>
         </TabsContent>
 
         {/* Author Text Styling */}
@@ -200,20 +189,6 @@ const StyleControls: React.FC<StyleControlsProps> = ({
           </div>
 
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label>Rotation</Label>
-              <span className="text-xs text-muted-foreground">{authorRotation}°</span>
-            </div>
-            <Slider
-              value={[authorRotation]}
-              min={-180}
-              max={180}
-              step={5}
-              onValueChange={(value) => setAuthorRotation(value[0])}
-            />
-          </div>
-
-          <div className="space-y-2">
             <Label>Text Alignment</Label>
             <div className="grid grid-cols-3 gap-2">
               {alignOptions.map((align) => (
@@ -238,6 +213,10 @@ const StyleControls: React.FC<StyleControlsProps> = ({
             onChange={setAuthorFontColor}
             label="Text Color"
           />
+          
+          <div className="p-2 bg-accent/20 rounded-md text-sm text-center">
+            Rotate the author text by using the rotation handle that appears when hovering over the text
+          </div>
         </TabsContent>
 
         <TabsContent value="background" className="space-y-4 py-4">
